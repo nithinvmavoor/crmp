@@ -1,0 +1,65 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: crmp-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:7-alpine
+    container_name: crmp-redis
+    ports:
+      - "6379:6379"
+
+  auth-service:
+    build: ../services/auth-service
+    container_name: crmp-auth
+    environment:
+      - PORT=4001
+      - SERVICE_NAME=auth-service
+    ports:
+      - "4001:4001"
+    depends_on:
+      - mongodb
+      - redis
+
+  catalog-service:
+    build: ../services/catalog-service
+    container_name: crmp-catalog
+    environment:
+      - PORT=4002
+      - SERVICE_NAME=catalog-service
+    ports:
+      - "4002:4002"
+    depends_on:
+      - mongodb
+      - redis
+
+  order-service:
+    build: ../services/order-service
+    container_name: crmp-order
+    environment:
+      - PORT=4003
+      - SERVICE_NAME=order-service
+    ports:
+      - "4003:4003"
+    depends_on:
+      - mongodb
+      - redis
+
+  notification-service:
+    build: ../services/notification-service
+    container_name: crmp-notification
+    environment:
+      - PORT=4004
+      - SERVICE_NAME=notification-service
+    ports:
+      - "4004:4004"
+    depends_on:
+      - mongodb
+      - redis
+
+volumes:
+  mongo_data:

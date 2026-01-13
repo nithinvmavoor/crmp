@@ -1,0 +1,86 @@
+# =========================
+# General
+# =========================
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*.swo
+
+# =========================
+# Node.js
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# TypeScript
+# =========================
+dist/
+build/
+*.tsbuildinfo
+
+# =========================
+# Environment files (secrets)
+# =========================
+.env
+.env.*
+!.env.example
+.env.local
+.env.dev
+.env.qa
+.env.prod
+
+# =========================
+# Coverage / tests
+# =========================
+coverage/
+.nyc_output/
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.iml
+
+# =========================
+# Docker
+# =========================
+**/.docker/
+docker-compose.override.yml
+
+# =========================
+# Mongo / Local data volumes
+# =========================
+data/
+mongo_data/
+redis_data/
+
+# =========================
+# OS / temp
+# =========================
+*.pid
+*.seed
+*.cache
+
+# =========================
+# Frontend (if React/Vite/Next later)
+# =========================
+frontend-web/node_modules/
+frontend-web/dist/
+frontend-web/.next/
+frontend-web/.turbo/
+frontend-web/out/
+frontend-web/.cache/
+
+# =========================
+# Logs inside services
+# =========================
+services/**/logs/
+services/**/.env
+services/**/.env.*
