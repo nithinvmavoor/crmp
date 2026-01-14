@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+build/
+
+# coverage
+coverage/
+
+# lockfiles (optional)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# docker volumes / local data
+mongo_data/
+redis_data/
+data/
+
+# logs
+*.log
+
+# next/vite (future)
+frontend-web/.next/
+frontend-web/dist/
+frontend-web/out/
