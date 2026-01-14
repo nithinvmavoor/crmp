@@ -4,6 +4,7 @@ import helmet from "helmet";
 
 import healthRoutes from "./routes/health.routes";
 import authRoutes from "./routes/auth.routes";
+import { sendErrorResponse } from "./utils/error-response.util";
 
 const app = express();
 
@@ -16,10 +17,6 @@ app.use("/health", healthRoutes);
 app.use("/", authRoutes); // /register & /login
 
 app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    data: null,
-    error: { message: "Page not found", code: "NOT_FOUND" },
-  });
+  sendErrorResponse(res, 404, "Page not found", "NOT_FOUND");
 });
 export default app;

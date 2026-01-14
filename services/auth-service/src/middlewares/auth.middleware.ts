@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { sendErrorResponse } from "../utils/error-response.util";
 
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
@@ -15,11 +16,7 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
   const authHeader = req.headers.authorization;
 
   if (!authHeader?.startsWith("Bearer ")) {
-    return res.status(401).json({
-      success: false,
-      data: null,
-      error: { message: "Missing token", code: "UNAUTHORIZED" },
-    });
+    return sendErrorResponse(res, 401, "Missing token", "UNAUTHORIZED");
   }
 
   const token = authHeader.split(" ")[1];
@@ -29,10 +26,6 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
     req.user = decoded;
     next();
   } catch {
-    return res.status(401).json({
-      success: false,
-      data: null,
-      error: { message: "Invalid token", code: "UNAUTHORIZED" },
-    });
+    return sendErrorResponse(res, 401, "Invalid token", "UNAUTHORIZED");
   }
 };
