@@ -1,10 +1,10 @@
 import path from "path";
 import dotenv from "dotenv";
+dotenv.config({ path: path.resolve(__dirname, "../config.env") });
 
 import app from "./app";
 import { connectMongo } from "./db/mongo";
 
-dotenv.config({ path: path.resolve(__dirname, "../config.env") });
 const PORT = process.env.PORT || 4001;
 const MONGO_URI = process.env.MONGO_URI || "";
 

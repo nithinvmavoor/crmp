@@ -30,7 +30,7 @@ export const register = async (req: Request, res: Response) => {
     const user = await UserModel.create({
       email,
       passwordHash,
-      role: "CUSTOMER", // default role
+      role: "ADMIN", // default role
     });
 
     return res.status(201).json({
@@ -75,8 +75,6 @@ export const login = async (req: Request, res: Response) => {
       error: null,
     });
   } catch (err) {
-    console.log(err);
-
     return sendErrorResponse(res, 500, "Internal server error", "INTERNAL_ERROR");
   }
 };
