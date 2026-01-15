@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getItems, createItem } from "../controllers/catalog.controller";
+import { getItems, createItem, getItemsByIds } from "../controllers/catalog.controller";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import { roleMiddleware } from "../middlewares/role.middleware";
 
@@ -10,5 +10,7 @@ router.use(authMiddleware);
 
 router.get("/items", getItems);
 router.post("/items", roleMiddleware("ADMIN"), createItem);
+
+router.post("/items/by-ids", getItemsByIds);
 
 export default router;

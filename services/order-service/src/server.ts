@@ -1,14 +1,22 @@
+import path from "path";
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, "../config.env") });
 
 import app from "./app";
+import { connectMongo } from "./db/mongo";
+import { connectRedis } from "./db/redis";
 import { logger } from "./utils/logger";
+import { OrderModel } from "./models/order.model";
 
-const PORT = process.env.PORT || 4003;
+const start = async () => {
+  await connectMongo(process.env.MONGO_URI || "");
+  await connectRedis();
 
-app.listen(PORT, () => {
-  logger("info", "Service started", {
-    port: PORT,
-    time: new Date().toISOString(),
-  });
-});
+  await OrderModel.syncIndexes();
+  logger("info", "Order indexes synced");
+
+  const port = process.env.PORT || 4003;
+  app.listen(port, () => logger("info", "Service started", { port }));
+};
+
+start();
