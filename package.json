@@ -1,5 +1,13 @@
 {
+  "scripts": {
+    "start:auth": "npm --prefix services/auth-service start",
+    "start:catalog": "npm --prefix services/catalog-service start",
+    "start:order": "npm --prefix services/order-service start",
+    "start:notification": "npm --prefix services/notification-service start",
+    "start:all": "concurrently -n AUTH,CATALOG,ORDER,NOTIFY -c blue,magenta,green,yellow \"npm run start:auth\" \"npm run start:catalog\" \"npm run start:order\" \"npm run start:notification\""
+  },
   "devDependencies": {
+    "concurrently": "^9.2.1",
     "prettier": "^3.7.4"
   }
 }
