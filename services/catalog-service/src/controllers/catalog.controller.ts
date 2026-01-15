@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { MenuItemModel } from "../models/menuItem.model";
 import { redisClient } from "../db/redis";
 import { sendErrorResponse } from "../utils/error-response.util";
+import { logger } from "../utils/logger";
 
 const TTL = Number(process.env.CACHE_TTL_SECONDS || 60);
 
@@ -14,15 +15,7 @@ export const getItems = async (req: Request, res: Response) => {
     // 1) check cache
     const cached = await redisClient.get(cacheKey);
     if (cached) {
-      console.log(
-        JSON.stringify({
-          level: "info",
-          service: process.env.SERVICE_NAME,
-          msg: "Menu cache hit",
-          cacheKey,
-          cacheHit: true,
-        })
-      );
+      logger("info", "Menu cache hit", { cacheKey, cacheHit: true });
 
       return res.json({
         success: true,
@@ -31,15 +24,7 @@ export const getItems = async (req: Request, res: Response) => {
       });
     }
 
-    console.log(
-      JSON.stringify({
-        level: "info",
-        service: process.env.SERVICE_NAME,
-        msg: "Menu cache miss",
-        cacheKey,
-        cacheHit: false,
-      })
-    );
+    logger("info", "Menu cache miss", { cacheKey, cacheHit: false });
 
     // 2) fetch from DB
     const filter: any = {};
@@ -85,14 +70,9 @@ export const createItem = async (req: Request, res: Response) => {
     await redisClient.del("menu:all");
     await redisClient.del(`menu:category:${category}`);
 
-    console.log(
-      JSON.stringify({
-        level: "info",
-        service: process.env.SERVICE_NAME,
-        msg: "Menu cache invalidated",
-        keys: ["menu:all", `menu:category:${category}`],
-      })
-    );
+    logger("info", "Menu cache invalidated", {
+      keys: ["menu:all", `menu:category:${category}`],
+    });
 
     return res.status(201).json({
       success: true,

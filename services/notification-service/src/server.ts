@@ -2,17 +2,13 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import app from "./app";
+import { logger } from "./utils/logger";
 
 const PORT = process.env.PORT || 4004;
 
 app.listen(PORT, () => {
-  console.log(
-    JSON.stringify({
-      level: "info",
-      service: process.env.SERVICE_NAME || "auth-service",
-      msg: `Service started`,
-      port: PORT,
-      time: new Date().toISOString()
-    })
-  );
+  logger("info", "Service started", {
+    port: PORT,
+    time: new Date().toISOString(),
+  });
 });

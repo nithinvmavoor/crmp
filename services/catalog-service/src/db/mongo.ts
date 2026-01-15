@@ -1,24 +1,12 @@
 import mongoose from "mongoose";
+import { logger } from "../utils/logger";
 
 export const connectMongo = async (mongoUri: string) => {
   await mongoose.connect(mongoUri);
-  console.log(
-    JSON.stringify({
-      level: "info",
-      service: process.env.SERVICE_NAME,
-      msg: "MongoDB connected",
-    })
-  );
+  logger("info", "MongoDB connected");
 };
 
 export const disconnectMongo = async () => {
   await mongoose.disconnect();
-  console.log(
-    JSON.stringify({
-      level: "info",
-      service: process.env.SERVICE_NAME,
-      msg: "MongoDB disconnected",
-      time: new Date().toISOString(),
-    })
-  );
+  logger("info", "MongoDB disconnected", { time: new Date().toISOString() });
 };
