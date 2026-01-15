@@ -1,10 +1,12 @@
 import { Request, Response } from "express";
 import axios from "axios";
 import { OrderModel } from "../models/order.model";
+import { CouponModel } from "../models/coupon.model";
 import { redisClient } from "../db/redis";
 import { sendErrorResponse } from "../utils/error-response.util";
 import { logger } from "../utils/logger";
 import { AuthRequest } from "../middlewares/auth.middleware";
+import { calculateDiscount } from "../utils/discount.utils";
 
 const TTL = Number(process.env.CACHE_TTL_SECONDS || 120);
 const CATALOG_URL = process.env.CATALOG_SERVICE_URL || "http://127.0.0.1:4002";
@@ -12,6 +14,7 @@ const NOTIFY_URL = process.env.NOTIFICATION_SERVICE_URL || "http://127.0.0.1:400
 
 type CreateOrderBody = {
   items: { itemId: string; quantity: number }[];
+  couponId?: string;
 };
 
 export const createOrder = async (req: AuthRequest, res: Response) => {
@@ -61,19 +64,33 @@ export const createOrder = async (req: AuthRequest, res: Response) => {
         quantity,
       };
     });
-    // 3) save order
+
+    // 3) Fetch coupon if couponId is provided
+    let coupon = null;
+    if (body.couponId) {
+      coupon = await CouponModel.findById(body.couponId);
+      if (!coupon) {
+        return sendErrorResponse(res, 400, "Invalid coupon ID", "VALIDATION_ERROR");
+      }
+    }
+
+    // 4) Calculate discount using strategy pattern (simple functions)
+    const discount = calculateDiscount(totalAmount, coupon);
+
+    // 5) save order
     const order = await OrderModel.create({
       customerId,
       items: orderItems,
       totalAmount,
+      discount,
       status: "CREATED",
     });
 
-    // 4) cache invalidation: order:<id>
+    // 6) cache invalidation: order:<id>
     await redisClient.del(`order:${order._id}`);
 
     //TODO: Uncomment after implement notification service
-    // 5) trigger notification-service (async)
+    // 7) trigger notification-service (async)
     /* axios
       .post(
         `${NOTIFY_URL}/notify`,

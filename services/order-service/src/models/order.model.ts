@@ -13,6 +13,7 @@ export interface IOrder extends Document {
   customerId: Types.ObjectId;
   items: IOrderItem[];
   totalAmount: number;
+  discount: number;
   status: OrderStatus;
   createdAt: Date;
 }
@@ -32,6 +33,7 @@ const OrderSchema = new Schema<IOrder>(
     customerId: { type: Schema.Types.ObjectId, required: true, index: true },
     items: { type: [OrderItemSchema], required: true },
     totalAmount: { type: Number, required: true },
+    discount: { type: Number, required: true, default: 0, min: 0 },
     status: {
       type: String,
       enum: ["CREATED", "CONFIRMED", "CANCELLED", "COMPLETED"],
