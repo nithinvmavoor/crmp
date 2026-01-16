@@ -89,9 +89,8 @@ export const createOrder = async (req: AuthRequest, res: Response) => {
     // 6) cache invalidation: order:<id>
     await redisClient.del(`order:${order._id}`);
 
-    //TODO: Uncomment after implement notification service
     // 7) trigger notification-service (async)
-    /* axios
+    axios
       .post(
         `${NOTIFY_URL}/notify`,
         {
@@ -104,7 +103,7 @@ export const createOrder = async (req: AuthRequest, res: Response) => {
       .catch((err) => {
         logger("error", "Notification trigger failed", { errorMessage: err.message });
       });
- */
+
     return res.status(201).json({
       success: true,
       data: order,
