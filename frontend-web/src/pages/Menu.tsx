@@ -90,17 +90,6 @@ export default function Menu() {
   const cartItems = Object.values(cart);
   const total = cartItems.reduce((sum, x) => sum + x.item.price * x.qty, 0);
 
-  const applyCoupon = () => {
-    setCouponMsg("");
-    if (!couponCode.trim()) {
-      setCouponMsg("Please enter a coupon code");
-      return;
-    }
-    // Minimal frontend-only apply:
-    // Real validation will happen during Place Order (backend)
-    setCouponMsg(`Coupon "${couponCode.trim().toUpperCase()}" will be applied during checkout.`);
-  };
-
   const placeOrder = async () => {
     setMsg("");
     setCouponMsg("");
