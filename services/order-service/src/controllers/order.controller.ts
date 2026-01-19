@@ -3,8 +3,8 @@ import axios from "axios";
 import { OrderModel } from "../models/order.model";
 import { CouponModel } from "../models/coupon.model";
 import { redisClient } from "../db/redis";
-import { sendErrorResponse } from "../utils/error-response.util";
-import { logger } from "../utils/logger";
+import { sendErrorResponse } from "@crmp/common";
+import { logger } from "@crmp/common";
 import { AuthRequest } from "../middlewares/auth.middleware";
 import { calculateDiscount } from "../utils/discount.utils";
 

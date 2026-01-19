@@ -4,7 +4,7 @@ dotenv.config({ path: path.resolve(__dirname, "../config.env") });
 
 import app from "./app";
 import { connectMongo } from "./db/mongo";
-import { logger } from "./utils/logger";
+import { logger } from "@crmp/common";
 
 const PORT = process.env.PORT || 4001;
 const MONGO_URI = process.env.MONGO_URI || "";

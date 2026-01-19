@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { CouponModel } from "../models/coupon.model";
-import { sendErrorResponse } from "../utils/error-response.util";
-import { logger } from "../utils/logger";
+import { sendErrorResponse } from "@crmp/common";
+import { logger } from "@crmp/common";
 
 //TODO: Coupon should be created against user. Should set expiry once it applied.
 // Otherwise create a field usersIds to track whether the user used this coupon or not.!!!

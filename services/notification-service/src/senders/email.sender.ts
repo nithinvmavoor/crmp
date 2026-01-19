@@ -1,7 +1,7 @@
 import { NotificationSender } from "./notification.sender";
 import { NotificationMessage } from "../types/notification.types";
-import { logger } from "../utils/logger";
 import { sleep } from "../workers/notification.worker";
+import { logger } from "@crmp/common";
 
 export class EmailSender implements NotificationSender {
   async send(message: NotificationMessage): Promise<void> {

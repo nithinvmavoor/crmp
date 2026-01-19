@@ -1,6 +1,6 @@
 import { SenderFactory } from "../factories/sender.factory";
 import { NotificationJob } from "../types/notification.types";
-import { logger } from "../utils/logger";
+import { logger } from "@crmp/common";
 import { buildOrderCreatedMessage } from "../templates/orderCreated.template";
 
 export class NotificationService {

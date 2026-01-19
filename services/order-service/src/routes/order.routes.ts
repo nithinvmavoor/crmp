@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authMiddleware } from "../middlewares/auth.middleware";
+import { authMiddleware } from "@crmp/common";
 import { createOrder, getOrderById } from "../controllers/order.controller";
 
 const router = Router();

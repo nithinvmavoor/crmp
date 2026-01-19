@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { createCoupon } from "../controllers/coupon.controller";
-import { authMiddleware } from "../middlewares/auth.middleware";
-import { roleMiddleware } from "../middlewares/role.middleware";
+import { authMiddleware, roleMiddleware } from "@crmp/common";
 
 const router = Router();
 

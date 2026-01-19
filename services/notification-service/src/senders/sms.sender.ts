@@ -1,6 +1,6 @@
 import { NotificationSender } from "./notification.sender";
 import { NotificationMessage } from "../types/notification.types";
-import { logger } from "../utils/logger";
+import { logger } from "@crmp/common";
 import { sleep } from "../workers/notification.worker";
 
 export class SmsSender implements NotificationSender {

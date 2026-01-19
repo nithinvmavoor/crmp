@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { getItems, createItem, getItemsByIds } from "../controllers/catalog.controller";
-import { authMiddleware } from "../middlewares/auth.middleware";
-import { roleMiddleware } from "../middlewares/role.middleware";
+import { authMiddleware, roleMiddleware } from "@crmp/common";
 
 const router = Router();
 

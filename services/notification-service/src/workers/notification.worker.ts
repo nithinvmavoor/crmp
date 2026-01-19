@@ -1,5 +1,5 @@
 import { workerRedisClient } from "../db/redis";
-import { logger } from "../utils/logger";
+import { logger } from "@crmp/common";
 import { NotificationService } from "../services/notification.service";
 import { NotificationJob } from "../types/notification.types";
 

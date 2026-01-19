@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { MenuItemModel } from "../models/menuItem.model";
 import { redisClient } from "../db/redis";
-import { sendErrorResponse } from "../utils/error-response.util";
-import { logger } from "../utils/logger";
+import { sendErrorResponse } from "@crmp/common";
+import { logger } from "@crmp/common";
 import mongoose from "mongoose";
 
 const TTL = Number(process.env.CACHE_TTL_SECONDS || 60);

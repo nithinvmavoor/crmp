@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { logger } from "../utils/logger";
+import { logger } from "@crmp/common";
 
 export const connectMongo = async (mongoUri: string) => {
   await mongoose.connect(mongoUri);

@@ -5,7 +5,7 @@ dotenv.config({ path: path.resolve(__dirname, "../catalog-config.env") });
 import app from "./app";
 import { connectMongo } from "./db/mongo";
 import { connectRedis } from "./db/redis";
-import { logger } from "./utils/logger";
+import { logger } from "@crmp/common";
 
 const PORT = process.env.PORT || 4002;
 const MONGO_URI = process.env.MONGO_URI || "";

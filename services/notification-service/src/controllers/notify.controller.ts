@@ -1,8 +1,6 @@
 import { Response } from "express";
+import { sendErrorResponse, logger, AuthRequest } from "@crmp/common";
 import { redisClient } from "../db/redis";
-import { sendErrorResponse } from "../utils/error-response.util";
-import { logger } from "../utils/logger";
-import { AuthRequest } from "../middlewares/auth.middleware";
 import { NotificationJob, NotificationChannel } from "../types/notification.types";
 
 const QUEUE = process.env.QUEUE_NAME || "notify:queue";

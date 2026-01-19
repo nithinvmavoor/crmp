@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { UserModel } from "../models/user.model";
 import { SignOptions } from "jsonwebtoken";
-import { sendErrorResponse } from "../utils/error-response.util";
+import { sendErrorResponse } from "@crmp/common";
 
 // TODO: remove this hardcoded value
 const JWT_SECRET = process.env.JWT_SECRET || ("jsdfjfjdfkjgurgnsjdnfjdfuhrsdjsdf" as string);
@@ -30,7 +30,7 @@ export const register = async (req: Request, res: Response) => {
     const user = await UserModel.create({
       email,
       passwordHash,
-      role: "ADMIN", // default role
+      role: "CUSTOMER", // default role
     });
 
     return res.status(201).json({

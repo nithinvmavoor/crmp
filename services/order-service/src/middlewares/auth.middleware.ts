@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { sendErrorResponse } from "../utils/error-response.util";
+import { sendErrorResponse } from "@crmp/common";
 
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 

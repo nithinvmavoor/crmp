@@ -57,10 +57,9 @@ export function calculateDiscount(
   originalPrice: number,
   coupon: ICoupon | null | undefined
 ): number {
-  console.log("Inside coupon", coupon);
-
   // If no coupon provided, return 0 discount
   if (!coupon || !coupon.isActive) {
+    console.log("inactive coupon");
     return 0;
   }
 

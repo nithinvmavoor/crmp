@@ -4,7 +4,7 @@ import helmet from "helmet";
 
 import healthRoutes from "./routes/health.routes";
 import authRoutes from "./routes/auth.routes";
-import { sendErrorResponse } from "./utils/error-response.util";
+import { sendErrorResponse } from "@crmp/common";
 
 const app = express();
 

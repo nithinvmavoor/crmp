@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authMiddleware } from "../middlewares/auth.middleware";
+import { authMiddleware } from "@crmp/common";
 import { enqueueNotification } from "../controllers/notify.controller";
 
 const router = Router();
