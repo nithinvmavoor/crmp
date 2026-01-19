@@ -14,7 +14,7 @@ const NOTIFY_URL = process.env.NOTIFICATION_SERVICE_URL || "http://127.0.0.1:400
 
 type CreateOrderBody = {
   items: { itemId: string; quantity: number }[];
-  couponId?: string;
+  couponCode?: string;
 };
 
 export const createOrder = async (req: AuthRequest, res: Response) => {
@@ -67,9 +67,10 @@ export const createOrder = async (req: AuthRequest, res: Response) => {
 
     // 3) Fetch coupon if couponId is provided
     let coupon = null;
-    if (body.couponId) {
-      coupon = await CouponModel.findById(body.couponId);
+    if (body.couponCode) {
+      coupon = await CouponModel.findOne({ code: body.couponCode });
       if (!coupon) {
+        console.log("Invalid coupon!!!!");
         return sendErrorResponse(res, 400, "Invalid coupon ID", "VALIDATION_ERROR");
       }
     }
@@ -90,13 +91,23 @@ export const createOrder = async (req: AuthRequest, res: Response) => {
     await redisClient.del(`order:${order._id}`);
 
     // 7) trigger notification-service (async)
+    // TODO: Update phone number and email through db
     axios
       .post(
         `${NOTIFY_URL}/notify`,
         {
-          type: "ORDER_CREATED",
-          orderId: order._id,
-          customerId,
+          eventType: "ORDER_CREATED",
+          channels: ["EMAIL", "SMS", "PUSH"],
+          user: {
+            email: "customer@gmail.com",
+            phone: "+919999999999",
+            deviceToken: "DEVICE_TOKEN_HERE",
+          },
+          data: {
+            orderId: String(order._id),
+            totalAmount: order.totalAmount,
+          },
+          traceId: String(order._id),
         },
         { headers: { Authorization: token } }
       )

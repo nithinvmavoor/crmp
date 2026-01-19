@@ -57,6 +57,8 @@ export function calculateDiscount(
   originalPrice: number,
   coupon: ICoupon | null | undefined
 ): number {
+  console.log("Inside coupon", coupon);
+
   // If no coupon provided, return 0 discount
   if (!coupon || !coupon.isActive) {
     return 0;
@@ -64,6 +66,7 @@ export function calculateDiscount(
 
   // Check if coupon has expired
   if (coupon.expiresAt && new Date() > coupon.expiresAt) {
+    console.log("expired coupon");
     return 0;
   }
 

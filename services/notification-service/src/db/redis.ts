@@ -5,7 +5,7 @@ export const redisClient = createClient({
   url: process.env.REDIS_URL,
 });
 
-// ✅ separate connection for worker blocking commands
+// separate connection for worker blocking commands
 export const workerRedisClient = createClient({
   url: process.env.REDIS_URL,
 });
