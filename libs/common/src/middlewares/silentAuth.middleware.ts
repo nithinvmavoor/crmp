@@ -20,7 +20,6 @@ export const createSilentAuthMiddleware = (config: SilentAuthConfig) => {
 
       // 1) verify access token if provided
       if (authHeader && authHeader.startsWith("Bearer ")) {
-        console.log('IN if');
         const token = authHeader.split(" ")[1];
 
         try {
@@ -28,7 +27,6 @@ export const createSilentAuthMiddleware = (config: SilentAuthConfig) => {
           req.user = decoded;
           return next();
         } catch (error: any) {
-          console.log('IN catch');
           
           // If token is expired, fall through to refresh logic.
           if (error.name !== "TokenExpiredError") {
@@ -38,7 +36,6 @@ export const createSilentAuthMiddleware = (config: SilentAuthConfig) => {
           }
         }
       }
-      console.log('outside catch');
 
       // 2) fallback using refreshToken cookie
       const cookieHeader = req.headers.cookie || "";
