@@ -15,7 +15,8 @@ export class NotificationService {
       job.channels.map(async (channel) => {
         const sender = SenderFactory.getSender(channel);
 
-        // Build channel-specific payload (Template)
+        // Build channel-specific payload (Template) 
+        // TODO: This can be moved to sender.buildMessage
         const message =
           job.eventType === "ORDER_CREATED"
             ? buildOrderCreatedMessage(job, channel)

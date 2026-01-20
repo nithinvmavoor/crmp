@@ -71,7 +71,6 @@ export const createSilentAuthMiddleware = (config: SilentAuthConfig) => {
       return next();
     } catch (error: any) {
       console.log(error.message);
-
       return sendErrorResponse(res, 401, "Unauthorized", "UNAUTHORIZED");
     }
   };
