@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const authApi = axios.create({ baseURL: "http://localhost:4001" });
-export const catalogApi = axios.create({ baseURL: "http://localhost:4002" });
-export const orderApi = axios.create({ baseURL: "http://localhost:4003" });
+export const authApi = axios.create({ baseURL: "http://localhost:4001", withCredentials: true });
+export const catalogApi = axios.create({ baseURL: "http://localhost:4002", withCredentials: true });
+export const orderApi = axios.create({ baseURL: "http://localhost:4003", withCredentials: true });
 
 const attachToken = (config: any) => {
   const token = localStorage.getItem("token");

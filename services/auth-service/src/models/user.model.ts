@@ -7,6 +7,7 @@ export interface IUser extends Document {
   passwordHash: string;
   role: UserRole;
   createdAt: Date;
+  refreshToken: string;
 }
 
 const UserSchema = new Schema<IUser>(
@@ -15,6 +16,10 @@ const UserSchema = new Schema<IUser>(
     passwordHash: { type: String, required: true },
     role: { type: String, enum: ["ADMIN", "STAFF", "CUSTOMER"], default: "CUSTOMER" },
     createdAt: { type: Date, default: Date.now },
+    refreshToken: {
+      type: String,
+      select: false, // Never return refresh token in queries by default
+    },
   },
   { versionKey: false }
 );

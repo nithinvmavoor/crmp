@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { getItems, createItem, getItemsByIds } from "../controllers/catalog.controller";
-import { authMiddleware, roleMiddleware } from "@crmp/common";
+import { silentAuthMiddleware, roleMiddleware } from "@crmp/common";
 
 const router = Router();
-
+const {AUTH_SERVICE_URL, JWT_SECRET} = process.env
 // All routes require JWT
-router.use(authMiddleware);
+router.use(silentAuthMiddleware({AUTH_SERVICE_URL, JWT_SECRET}));
 
 router.get("/items", getItems);
 router.post("/items", roleMiddleware("ADMIN"), createItem);

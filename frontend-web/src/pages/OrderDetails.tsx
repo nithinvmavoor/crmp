@@ -93,7 +93,7 @@ export default function OrderDetails() {
       </>
 
       <div style={{ marginTop: 20, display: "flex", gap: 10 }}>
-        <button onClick={() => alert("Sending to printer!!!! Thankyou...")}>Submit</button>
+        <button onClick={() => alert("Order submited !!!! Thankyou...")}>Submit</button>
         <Link to="/menu">Back to Menu</Link>
       </div>
     </div>
