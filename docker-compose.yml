@@ -56,7 +56,7 @@ services:
       - REDIS_URL=redis://redis:6379
 
       # ✅ Auth service inside docker network
-      - AUTH_SERVICE_URL=http://auth-service:4001
+      - AUTH_SERVICE_URL=${AUTH_SERVICE_URL}
 
       # ✅ must match auth token verify secret
       - JWT_SECRET=${JWT_SECRET}
@@ -89,9 +89,9 @@ services:
       - REDIS_URL=redis://redis:6379
 
       # ✅ service URLs inside docker network
-      - AUTH_SERVICE_URL=http://auth-service:4001
-      - CATALOG_SERVICE_URL=http://catalog-service:4002
-      - NOTIFICATION_SERVICE_URL=http://notification-service:4004
+      - AUTH_SERVICE_URL=${AUTH_SERVICE_URL}
+      - CATALOG_SERVICE_URL=${CATALOG_SERVICE_URL}
+      - NOTIFICATION_SERVICE_URL=${NOTIFICATION_SERVICE_URL}
 
       - JWT_SECRET=${JWT_SECRET}
 
@@ -119,7 +119,7 @@ services:
 
       - REDIS_URL=redis://redis:6379
 
-      - AUTH_SERVICE_URL=http://auth-service:4001
+      - AUTH_SERVICE_URL=${AUTH_SERVICE_URL}
       - JWT_SECRET=${JWT_SECRET}
 
       - CORS_ORIGINS=${CORS_ORIGINS}
@@ -138,6 +138,11 @@ services:
     container_name: crmp-frontend-web
     ports:
       - "5173:5173"
+
+    environment:
+      - VITE_AUTH_API_URL=${VITE_AUTH_API_URL}
+      - VITE_CATALOG_API_URL=${VITE_CATALOG_API_URL}
+      - VITE_ORDER_API_URL=${VITE_ORDER_API_URL}
     depends_on:
       - auth-service
       - catalog-service
