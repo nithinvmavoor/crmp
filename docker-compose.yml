@@ -1,0 +1,148 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: crmp-redis
+    ports:
+      - "6379:6379"
+
+  # ------------------------
+  # AUTH SERVICE
+  # ------------------------
+  auth-service:
+    build:
+      context: .
+      dockerfile: services/auth-service/Dockerfile
+    container_name: crmp-auth-service
+    ports:
+      - "4001:4001"
+    environment:
+      - SERVICE_NAME=auth-service
+      - PORT=4001
+
+      # ✅ Mongo Atlas for auth-service
+      - MONGO_URI=${MONGO_URI_AUTH}
+
+      # ✅ Secrets
+      - JWT_SECRET=${JWT_SECRET}
+      - REFRESH_TOKEN_SECRET=${REFRESH_TOKEN_SECRET}
+
+      # ✅ CORS
+      - CORS_ORIGINS=${CORS_ORIGINS}
+
+    depends_on:
+      - redis
+
+  # ------------------------
+  # CATALOG SERVICE
+  # ------------------------
+  catalog-service:
+    build:
+      context: .
+      dockerfile: services/catalog-service/Dockerfile
+    container_name: crmp-catalog-service
+    ports:
+      - "4002:4002"
+    environment:
+      - SERVICE_NAME=catalog-service
+      - PORT=4002
+
+      # ✅ Mongo Atlas for catalog-service
+      - MONGO_URI=${MONGO_URI_CATALOG}
+
+      # ✅ Redis
+      - REDIS_URL=redis://redis:6379
+
+      # ✅ Auth service inside docker network
+      - AUTH_SERVICE_URL=http://auth-service:4001
+
+      # ✅ must match auth token verify secret
+      - JWT_SECRET=${JWT_SECRET}
+
+      # ✅ CORS
+      - CORS_ORIGINS=${CORS_ORIGINS}
+
+    depends_on:
+      - redis
+      - auth-service
+
+  # ------------------------
+  # ORDER SERVICE
+  # ------------------------
+  order-service:
+    build:
+      context: .
+      dockerfile: services/order-service/Dockerfile
+    container_name: crmp-order-service
+    ports:
+      - "4003:4003"
+    environment:
+      - SERVICE_NAME=order-service
+      - PORT=4003
+
+      # ✅ Mongo Atlas for order-service
+      - MONGO_URI=${MONGO_URI_ORDERS}
+
+      # ✅ Redis
+      - REDIS_URL=redis://redis:6379
+
+      # ✅ service URLs inside docker network
+      - AUTH_SERVICE_URL=http://auth-service:4001
+      - CATALOG_SERVICE_URL=http://catalog-service:4002
+      - NOTIFICATION_SERVICE_URL=http://notification-service:4004
+
+      - JWT_SECRET=${JWT_SECRET}
+
+      - CORS_ORIGINS=${CORS_ORIGINS}
+
+    depends_on:
+      - redis
+      - auth-service
+      - catalog-service
+      - notification-service
+
+  # ------------------------
+  # NOTIFICATION SERVICE
+  # ------------------------
+  notification-service:
+    build:
+      context: .
+      dockerfile: services/notification-service/Dockerfile
+    container_name: crmp-notification-service
+    ports:
+      - "4004:4004"
+    environment:
+      - SERVICE_NAME=notification-service
+      - PORT=4004
+
+      - REDIS_URL=redis://redis:6379
+
+      - AUTH_SERVICE_URL=http://auth-service:4001
+      - JWT_SECRET=${JWT_SECRET}
+
+      - CORS_ORIGINS=${CORS_ORIGINS}
+
+    depends_on:
+      - redis
+      - auth-service
+
+  # ------------------------
+  # FRONTEND (MINIMAL REACT)
+  # ------------------------
+  frontend-web:
+    build:
+      context: .
+      dockerfile: frontend-web/Dockerfile
+    container_name: crmp-frontend-web
+    ports:
+      - "5173:5173"
+    depends_on:
+      - auth-service
+      - catalog-service
+      - order-service
+      - notification-service
+
+networks:
+  default:
+    name: crmp-network

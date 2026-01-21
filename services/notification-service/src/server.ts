@@ -12,8 +12,8 @@ const PORT = process.env.PORT || 4004;
 const start = async () => {
   await connectRedis();
 
-  app.listen(PORT, () => {
-    logger("info", "Service started", { port: PORT });
+  app.listen(PORT as number, "0.0.0.0", () => {
+    console.log(`${process.env.SERVICE_NAME} running on ${PORT}`);
   });
 
   // Start background worker

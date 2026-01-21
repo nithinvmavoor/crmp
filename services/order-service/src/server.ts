@@ -15,8 +15,10 @@ const start = async () => {
   await OrderModel.syncIndexes();
   logger("info", "Order indexes synced");
 
-  const port = process.env.PORT || 4003;
-  app.listen(port, () => logger("info", "Service started", { port }));
+  const PORT = process.env.PORT || 4003;
+  app.listen(PORT as number, "0.0.0.0", () => {
+    console.log(`${process.env.SERVICE_NAME} running on ${PORT}`);
+  });
 };
 
 start();

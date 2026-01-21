@@ -13,8 +13,8 @@ const MONGO_URI = process.env.MONGO_URI || "";
 const start = async () => {
   await connectMongo(MONGO_URI);
   await connectRedis();
-  app.listen(PORT, () => {
-    logger("info", "Service started", { port: PORT });
+  app.listen(PORT as number, "0.0.0.0", () => {
+    console.log(`${process.env.SERVICE_NAME} running on ${PORT}`);
   });
 };
 
