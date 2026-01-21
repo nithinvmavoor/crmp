@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import { logger } from "@crmp/common";
 
 export const connectMongo = async (mongoUri: string) => {
+  console.log(mongoUri);
+
   await mongoose.connect(mongoUri);
   logger("info", "MongoDB connected");
 };

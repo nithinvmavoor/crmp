@@ -21,7 +21,8 @@ COPY --from=builder /app/services/catalog-service/package.json ./package.json
 COPY --from=builder /app/services/catalog-service/dist ./dist
 
 # ✅ FIX: vendor common library into node_modules to avoid broken symlink
-RUN mkdir -p ./node_modules && mkdir -p ./node_modules/@crmp/common
+RUN rm -rf ./node_modules/@crmp \
+    && mkdir -p ./node_modules/@crmp/common
 COPY --from=builder /app/libs/common/package.json ./node_modules/@crmp/common/package.json
 COPY --from=builder /app/libs/common/dist ./node_modules/@crmp/common/dist
 
