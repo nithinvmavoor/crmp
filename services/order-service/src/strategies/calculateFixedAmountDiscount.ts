@@ -5,11 +5,12 @@
  * @returns The discount amount (clamped to not exceed originalPrice)
  */
 export function calculateFixedAmountDiscount(originalPrice: number, amount: number): number {
-    if (amount <= 0 || originalPrice <= 0) {
-      return 0;
-    }
-  
-    // Ensure discount doesn't exceed original price
-    return Math.min(amount, originalPrice);
+  console.log('Inside...');
+
+  if (amount <= 0 || originalPrice <= 0) {
+    return 0;
   }
-  
+
+  // Ensure discount doesn't exceed original price
+  return Math.min(amount, originalPrice);
+}

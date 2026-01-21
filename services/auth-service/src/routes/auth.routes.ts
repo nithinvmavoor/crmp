@@ -1,10 +1,9 @@
 import { Router } from "express";
-import { register, login, refreshFromCookie } from "../controllers/auth.controller";
+import { authController } from "../controllers/auth.controller";
 
 const router = Router();
 
-router.post("/register", register);
-router.post("/login", login);
-// ✅ backend silent refresh support
-router.post("/refresh-cookie", refreshFromCookie);
+router.post("/register", authController.register);
+router.post("/login", authController.login);
+router.post("/refresh-cookie", authController.refresh);
 export default router;

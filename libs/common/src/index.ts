@@ -9,3 +9,4 @@ export * from "./middlewares/activity.middleware";
 export * from "./middlewares/silentAuth.helper";
 
 export * from "./types/roles";
+export * from "./errors/ApiError";
