@@ -33,6 +33,10 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+// preflight
+app.options("*", cors());
+
 app.use(activityMiddleware);
 app.use(helmet());
 app.use(express.json());
