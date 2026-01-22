@@ -32,9 +32,6 @@ app.use(
   })
 );
 
-// preflight
-app.options("/*", cors());
-
 app.use(activityMiddleware);
 
 app.use(helmet());

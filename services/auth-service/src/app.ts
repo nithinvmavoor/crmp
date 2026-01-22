@@ -11,6 +11,11 @@ const app = express();
 
 app.use(cookieParser()); // ✅ MUST be before routes
 
+app.use(helmet());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(activityMiddleware);
+
 const corsOrigins = (process.env.CORS_ORIGINS || "")
   .split(",")
   .map((o) => o.trim())
@@ -33,14 +38,6 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
-// preflight
-app.options("/*", cors());
-
-app.use(activityMiddleware);
-app.use(helmet());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 app.use("/health", healthRoutes);
 app.use("/", authRoutes); // /register & /login
