@@ -4,8 +4,8 @@ import { authApi } from "../api";
 
 export default function Login() {
   const nav = useNavigate();
-  const [email, setEmail] = useState("admin@test.com");
-  const [password, setPassword] = useState("Pass@123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
 
   const onSubmit = async (e: any) => {
