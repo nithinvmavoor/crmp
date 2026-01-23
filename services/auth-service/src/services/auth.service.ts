@@ -12,7 +12,7 @@ export const authService = {
 
         const user = await userRepository.create({
             email: payload.email,
-            password: hashed,
+            passwordHash: hashed,
         });
 
         //const accessToken = tokenService.signAccessToken({ userId: user.id, role: user.role });
