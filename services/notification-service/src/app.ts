@@ -37,7 +37,7 @@ app.use(activityMiddleware);
 app.use(helmet());
 app.use(express.json());
 
-app.use("/health", healthRoutes);
-app.use("/", notifyRoutes);
+app.use("/notifications/health", healthRoutes);
+app.use("/notifications/", notifyRoutes);
 
 export default app;

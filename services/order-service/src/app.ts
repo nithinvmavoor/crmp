@@ -37,9 +37,9 @@ app.use(activityMiddleware);
 app.use(helmet());
 app.use(express.json());
 
-app.use("/health", healthRoutes);
-app.use("/coupon", couponRoutes);
-app.use("/", orderRoutes);
+app.use("/orders/health", healthRoutes);
+app.use("/orders/coupon", couponRoutes);
+app.use("/orders/", orderRoutes);
 
 app.use((req, res) => {
   sendErrorResponse(res, 404, "Page not found", "NOT_FOUND");
