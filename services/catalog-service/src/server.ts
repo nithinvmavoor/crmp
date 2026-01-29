@@ -11,6 +11,8 @@ const PORT = process.env.PORT || 4002;
 const MONGO_URI = process.env.MONGO_URI || "";
 
 const start = async () => {
+  console.log("Inside catalog server!!!!!!");
+
   await connectMongo(MONGO_URI);
   await connectRedis();
   app.listen(PORT as number, "0.0.0.0", () => {
