@@ -39,8 +39,8 @@ app.use(
   })
 );
 
-app.use("/health", healthRoutes);
-app.use("/", authRoutes); // /register & /login
+app.use("/auth/health", healthRoutes);
+app.use("/auth/", authRoutes); // /register & /login
 
 app.use((req, res) => {
   sendErrorResponse(res, 404, "Page not found", "NOT_FOUND");
