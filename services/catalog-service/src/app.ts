@@ -35,11 +35,11 @@ app.use(
 app.get("/catalog/health", (_req, res) => {
   res.status(200).send("OK");
 });
+app.use(express.json());
 
 app.use(activityMiddleware);
 
 app.use(helmet());
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/catalog/health", healthRoutes);
