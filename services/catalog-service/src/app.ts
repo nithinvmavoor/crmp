@@ -31,6 +31,11 @@ app.use(
   })
 );
 
+// 🔴 MUST be before any auth / routes / middleware
+app.get("/catalog/health", (_req, res) => {
+  res.status(200).send("OK");
+});
+
 app.use(activityMiddleware);
 
 app.use(helmet());
