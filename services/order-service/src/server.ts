@@ -10,8 +10,10 @@ import { OrderModel } from "./models/order.model";
 
 const start = async () => {
   await connectMongo(process.env.MONGO_URI || "");
-  await connectRedis();
+  console.log('Connecting to order...');
 
+  await connectRedis();
+  console.log('Connected.!!!..');
   await OrderModel.syncIndexes();
   logger("info", "Order indexes synced");
 
