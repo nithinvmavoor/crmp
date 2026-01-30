@@ -1,6 +1,6 @@
-/* import path from "path";
+import path from "path";
 import dotenv from "dotenv";
-dotenv.config({ path: path.resolve(__dirname, "../catalog-config.env") }); */
+dotenv.config({ path: path.resolve(__dirname, "../catalog-config.env") });
 
 import app from "./app";
 import { connectMongo } from "./db/mongo";
