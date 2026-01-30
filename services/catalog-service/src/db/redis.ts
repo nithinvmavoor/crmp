@@ -6,11 +6,18 @@ export const redisClient = createClient({
 });
 
 export const connectRedis = async () => {
-  redisClient.on("error", (err) => {
-    logger("error", "Redis error", { err: err.message });
-  });
+  try {
+    redisClient.on("error", (err) => {
+      console.error("Redis error event:", err.message);
+    });
 
-  await redisClient.connect();
+    console.log("Connecting to Redis at:", process.env.REDIS_URL);
 
-  logger("info", "Redis connected");
+    await redisClient.connect();
+
+    console.log("Redis connected");
+  } catch (err: any) {
+    console.error("Redis connection failed:", err.message);
+    process.exit(1);
+  }
 };
