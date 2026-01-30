@@ -31,10 +31,6 @@ app.use(
   })
 );
 
-// 🔴 MUST be before any auth / routes / middleware
-app.get("/catalog/health", (_req, res) => {
-  res.status(200).send("OK");
-});
 app.use(express.json());
 
 app.use(activityMiddleware);
