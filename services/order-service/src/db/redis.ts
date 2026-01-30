@@ -1,23 +1,22 @@
-import { createClient } from "redis";
-import { logger } from "@crmp/common";
+import { createClient, RedisClientType } from "redis";
 
-export const redisClient = createClient({
-  url: process.env.REDIS_URL,
-});
+let redisClient: RedisClientType;
 
 export const connectRedis = async () => {
-  try {
-    redisClient.on("error", (err) => {
-      console.error("Redis error event:", err.message);
-    });
+  redisClient = createClient({
+    url: process.env.REDIS_URL!,
+    socket: {
+      connectTimeout: 5000,
+    },
+  });
 
-    console.log("Connecting to Redis at:", process.env.REDIS_URL);
+  redisClient.on("error", err => {
+    console.error("Redis error:", err.message);
+  });
 
-    await redisClient.connect();
-
-    console.log("Redis connected");
-  } catch (err: any) {
-    console.error("Redis connection failed:", err.message);
-    process.exit(1);
-  }
+  console.log("Connecting to Redis from order!!!_+++++++");
+  await redisClient.connect();
+  console.log("Redis connected");
 };
+
+export const getRedisClient = () => redisClient;
