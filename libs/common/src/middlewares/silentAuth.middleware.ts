@@ -15,15 +15,6 @@ export const createSilentAuthMiddleware = (config: SilentAuthConfig) => {
 
   return async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-
-      // BYPASS HEALTH CHECKS
-      if (
-        req.originalUrl === "/notifications/health" ||
-        req.originalUrl === "/health"
-      ) {
-        return next();
-      }
-
       const authHeader = req.headers.authorization;
 
       // 1) verify access token if provided

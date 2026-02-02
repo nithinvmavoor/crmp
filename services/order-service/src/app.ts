@@ -39,7 +39,7 @@ app.use(express.json());
 
 app.use("/orders/health", healthRoutes);
 app.use("/orders/coupon", couponRoutes);
-app.use("/orders/", orderRoutes);
+app.use("/orders/order", orderRoutes);
 
 app.use((req, res) => {
   sendErrorResponse(res, 404, "Page not found", "NOT_FOUND");

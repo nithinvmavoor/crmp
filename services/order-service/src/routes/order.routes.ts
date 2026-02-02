@@ -8,7 +8,7 @@ const { AUTH_SERVICE_URL, JWT_SECRET } = process.env
 // All routes require JWT
 router.use(silentAuthMiddleware({ AUTH_SERVICE_URL, JWT_SECRET }));
 
-router.post("/orders", orderController.createOrder);
-router.get("/orders/:id", orderController.getOrderById);
+router.post("/", orderController.createOrder);
+router.get("/:id", orderController.getOrderById);
 
 export default router;

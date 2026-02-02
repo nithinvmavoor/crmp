@@ -37,7 +37,17 @@ app.use(activityMiddleware);
 app.use(helmet());
 app.use(express.json());
 
+app.use((req, _res, next) => {
+  console.log("DEBUG REQUEST:", {
+    originalUrl: req.originalUrl,
+    baseUrl: req.baseUrl,
+    path: req.path,
+    url: req.url,
+  });
+  next();
+});
+
 app.use("/notifications/health", healthRoutes);
-app.use("/notifications/", notifyRoutes);
+app.use("/notifications", notifyRoutes);
 
 export default app;

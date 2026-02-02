@@ -39,7 +39,7 @@ app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/catalog/health", healthRoutes);
-app.use("/catalog/", catalogRoutes);
+app.use("/catalog", catalogRoutes);
 
 app.use((req, res) => {
   sendErrorResponse(res, 404, "Page not found", "NOT_FOUND");
