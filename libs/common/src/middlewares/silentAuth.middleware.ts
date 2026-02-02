@@ -16,6 +16,14 @@ export const createSilentAuthMiddleware = (config: SilentAuthConfig) => {
   return async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
 
+      // BYPASS HEALTH CHECKS
+      if (
+        req.originalUrl === "/notifications/health" ||
+        req.originalUrl === "/health"
+      ) {
+        return next();
+      }
+
       const authHeader = req.headers.authorization;
 
       // 1) verify access token if provided
@@ -27,7 +35,7 @@ export const createSilentAuthMiddleware = (config: SilentAuthConfig) => {
           req.user = decoded;
           return next();
         } catch (error: any) {
-          
+
           // If token is expired, fall through to refresh logic.
           if (error.name !== "TokenExpiredError") {
             return res.status(401).json({
