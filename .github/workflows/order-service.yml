@@ -3,7 +3,7 @@ name: Deploy Order Service
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'services/order-service/**'
       - 'libs/common/**'
