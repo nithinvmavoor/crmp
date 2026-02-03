@@ -38,7 +38,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-console.log("Added minor change");
+console.log("Added minor change sfsfdsfsfsfsfdsf");
 
 app.use("/auth/health", healthRoutes);
 app.use("/auth/", authRoutes); // /register & /login
