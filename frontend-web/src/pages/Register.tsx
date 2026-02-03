@@ -13,7 +13,7 @@ export default function Register() {
     setMsg("");
 
     try {
-      await authApi.post("/auth/register", { email, password });
+      await authApi.post("/register", { email, password });
       nav("/login");
     } catch (err: any) {
       setMsg(err?.response?.data?.error?.message || "Register failed");

@@ -45,7 +45,7 @@ export const orderService = {
         let coupon: any = null;
         if (body.couponCode) {
             coupon = await couponRepository.findByCode(body.couponCode.toUpperCase());
-            if (!coupon) throw new ApiError(400, "Invalid coupon code");
+            if (!coupon) logger('info', "Invalid coupon code");
         }
 
         // 3) Calculate discount

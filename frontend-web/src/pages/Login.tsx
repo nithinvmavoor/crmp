@@ -13,7 +13,9 @@ export default function Login() {
     setMsg("");
 
     try {
-      const res = await authApi.post("/auth/login", { email, password });
+      console.log(authApi);
+      
+      const res = await authApi.post("/login", { email, password });
       const token = res.data?.data?.token;
 
       if (!token) {

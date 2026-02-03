@@ -41,7 +41,7 @@ export default function Menu() {
 
   const fetchItems = async () => {
     setMsg("");
-    const res = await catalogApi.get("/catalog/items");
+    const res = await catalogApi.get("/items");
     setItems(res.data?.data || []);
   };
 
@@ -108,7 +108,7 @@ export default function Menu() {
         payload.couponCode = couponCode.trim().toUpperCase();
       }
 
-      const res = await orderApi.post("/orders/order", payload);
+      const res = await orderApi.post("/order", payload);
       const orderId = res.data?.data?._id;
 
       clearCart();
@@ -148,7 +148,7 @@ export default function Menu() {
     }
     setMsg("");
     try {
-      await catalogApi.post("/catalog/items", newItem);
+      await catalogApi.post("/items", newItem);
       setNewItem({ name: "", price: 0, category: "", description: "", isAvailable: true });
       await fetchItems();
       setMsg("Item created");

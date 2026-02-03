@@ -36,6 +36,7 @@ app.use(activityMiddleware);
 
 app.use(helmet());
 app.use(express.json());
+console.log("TESTING CICD PIPELINE+++");
 
 app.use("/orders/health", healthRoutes);
 app.use("/orders/coupon", couponRoutes);
