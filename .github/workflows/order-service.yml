@@ -34,12 +34,12 @@ jobs:
 
       - name: Tag Docker image
         run: |
-          docker tag crmp-order-service:latest \
-          818811143146.dkr.ecr.ap-south-1.amazonaws.com/crmp-order-service:latest
+          docker tag crmp-order-service:${{ github.sha }} \
+          818811143146.dkr.ecr.ap-south-1.amazonaws.com/crmp-order-service:${{ github.sha }}
 
       - name: Push image to ECR
         run: |
-          docker push 818811143146.dkr.ecr.ap-south-1.amazonaws.com/crmp-order-service:latest
+          docker push 818811143146.dkr.ecr.ap-south-1.amazonaws.com/crmp-order-service:${{ github.sha }}
 
       - name: Deploy to ECS
         run: |
