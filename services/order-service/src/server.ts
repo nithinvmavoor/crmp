@@ -19,7 +19,7 @@ const start = async () => {
 
   const PORT = process.env.PORT || 4003;
   app.listen(PORT as number, "0.0.0.0", () => {
-    console.log(`${process.env.SERVICE_NAME} running on ${PORT}`);
+    console.log(`order-service running on ${PORT}`);
   });
 };
 

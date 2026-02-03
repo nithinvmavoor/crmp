@@ -17,7 +17,7 @@ const start = async () => {
   await connectRedis();
 
   app.listen(PORT as number, "0.0.0.0", () => {
-    console.log(`${process.env.SERVICE_NAME} running on ${PORT}`);
+    console.log(`catalog-service running on ${PORT}`);
   });
 };
 
