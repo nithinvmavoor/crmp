@@ -42,7 +42,7 @@ app.use(
 app.use("/auth/health", healthRoutes);
 app.use("/auth/", authRoutes); // /register & /login
 console.log("Added minor change");
-console.log("+++++++++++Newwww......TESTING CICD......+++++++++++");
+console.log("+++++++++tertert++Newwww......TESTING CICD......+++++++++++");
 
 app.use((req, res) => {
   sendErrorResponse(res, 404, "Page not found", "NOT_FOUND");
