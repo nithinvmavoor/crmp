@@ -1,4 +1,4 @@
-name: Deploy auth Service
+name: Deploy Auth Service
 
 on:
   push:
@@ -35,15 +35,30 @@ jobs:
       - name: Tag Docker image
         run: |
           docker tag crmp-auth-service:${{ github.sha }} \
-          818811143146.dkr.ecr.ap-south-1.amazonaws.com/crmp-auth-service:${{ github.sha }}
+          ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/crmp-auth-service:${{ github.sha }}
 
       - name: Push image to ECR
         run: |
-          docker push 818811143146.dkr.ecr.ap-south-1.amazonaws.com/crmp-auth-service:${{ github.sha }}
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/crmp-auth-service:${{ github.sha }}
 
-      - name: Deploy to ECS
+      - name: Download current task definition
         run: |
-          aws ecs update-service \
-            --cluster crmp-prod-cluster \
-            --service crmp-auth-service \
-            --force-new-deployment
+          aws ecs describe-task-definition \
+            --task-definition crmp-auth-task \
+            --query taskDefinition > task-def.json
+
+      - name: Update image in task definition
+        id: render
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-def.json
+          container-name: auth-service
+          image: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/crmp-auth-service:${{ github.sha }}
+
+      - name: Deploy updated task definition to ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.render.outputs.task-definition }}
+          service: crmp-auth-service
+          cluster: crmp-prod-cluster
+          wait-for-service-stability: true
