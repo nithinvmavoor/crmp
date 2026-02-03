@@ -29,7 +29,7 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-            -t crmp-notification-service \
+            -t crmp-notification-service:${{ github.sha }} \
             -f services/notification-service/Dockerfile .
 
       - name: Tag Docker image

@@ -29,7 +29,7 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-            -t crmp-catalog-service \
+            -t crmp-catalog-service:${{ github.sha }} \
             -f services/catalog-service/Dockerfile .
 
       - name: Tag Docker image
