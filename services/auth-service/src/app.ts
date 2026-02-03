@@ -41,6 +41,7 @@ app.use(
 
 app.use("/auth/health", healthRoutes);
 app.use("/auth/", authRoutes); // /register & /login
+console.log("TESTING CICD......");
 
 app.use((req, res) => {
   sendErrorResponse(res, 404, "Page not found", "NOT_FOUND");
