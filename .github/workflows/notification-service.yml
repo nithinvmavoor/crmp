@@ -59,6 +59,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.render.outputs.task-definition }}
-          service: crmp-notification-service
+          service: crmp-notification-task-service-rloxbduf
           cluster: crmp-prod-cluster
           wait-for-service-stability: true
