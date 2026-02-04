@@ -37,16 +37,6 @@ app.use(activityMiddleware);
 app.use(helmet());
 app.use(express.json());
 
-app.use((req, _res, next) => {
-  console.log("DEBUG REQUEST:", {
-    originalUrl: req.originalUrl,
-    baseUrl: req.baseUrl,
-    path: req.path,
-    url: req.url,
-  });
-  next();
-});
-
 console.log("Path check!!!!!!!!");
 
 app.use("/notifications/health", healthRoutes);
