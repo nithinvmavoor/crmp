@@ -38,9 +38,10 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+console.log("Path check!!!!!!!!");
 
 app.use("/auth/health", healthRoutes);
-app.use("/auth/", authRoutes); // /register & /login
+app.use("/auth/", authRoutes);
 
 app.use((req, res) => {
   sendErrorResponse(res, 404, "Page not found", "NOT_FOUND");

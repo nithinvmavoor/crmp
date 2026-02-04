@@ -38,6 +38,8 @@ app.use(activityMiddleware);
 app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 
+console.log("Path check!!!!!!!!");
+
 app.use("/catalog/health", healthRoutes);
 app.use("/catalog", catalogRoutes);
 

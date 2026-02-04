@@ -47,6 +47,8 @@ app.use((req, _res, next) => {
   next();
 });
 
+console.log("Path check!!!!!!!!");
+
 app.use("/notifications/health", healthRoutes);
 app.use("/notifications", notifyRoutes);
 
