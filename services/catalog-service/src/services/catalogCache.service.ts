@@ -18,7 +18,7 @@ export const catalogCacheService = {
     async del(keys: string[]) {
         if (!keys.length) return;
 
-        await redisClient.del(keys);
+        await Promise.all(keys.map(k => redisClient.del(k)));
         logger("info", "Menu cache invalidated", { keys });
     },
 };
